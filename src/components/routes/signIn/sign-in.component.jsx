@@ -1,21 +1,23 @@
-import React from "react";
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-} from "../../../utils/firebase/firebase.utils";
+import styled from "styled-components";
+import SignUpForm from "../../sign-up-form/signUpForm.component";
+import SignInForm from "../sign-in-form/signin-form.component";
 
 const SignIn = () => {
-  const logWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDoc = await createUserDocumentFromAuth(user);
-  };
-
   return (
-    <div>
-      <h1>SignIn</h1>
-      <button onClick={logWithGoogle}>sign in with google yoooo</button>
-    </div>
+    <Wrapper>
+      <SignInForm />
+      <SignUpForm />
+    </Wrapper>
   );
 };
 
 export default SignIn;
+
+const Wrapper = styled.div`
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+  gap: 5px;
+  margin: 0 auto;
+  place-content: center;
+`;
