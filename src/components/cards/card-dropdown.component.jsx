@@ -1,11 +1,16 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ToggleContext } from "../../contexts/toggle.context";
 import CartItem from "./card-item.component";
 
 const CardDropDown = () => {
   const { cartItems } = useContext(ToggleContext);
+  const navigate = useNavigate();
 
+  const goToCheckoutHandler = () => {
+    navigate("/checkout");
+  };
   return (
     <Wrappe>
       <CardItem>
@@ -13,7 +18,7 @@ const CardDropDown = () => {
           <CartItem key={item.id} cartItem={item} />
         ))}
       </CardItem>
-      <Button>Go to Checkout</Button>
+      <Button onClick={goToCheckoutHandler}>Go to Checkout</Button>
     </Wrappe>
   );
 };
