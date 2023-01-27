@@ -1,19 +1,30 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
+import { UserContext } from "../../../contexts/user.context";
+import { signOutUser } from "../../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
   return (
     <Fragment>
       <Wrapper>
         <NavLogo to="/">
           <CrownLogo className="logo" />
         </NavLogo>
-
         <NavLinkWrapper>
           <NavLink to="/shop">SHOP</NavLink>
-          <NavLink to="/auth">SIGN IN</NavLink>
+          {currentUser ? (
+            <SignOut onClick={signOutHandler}>SIGN OUT</SignOut>
+          ) : (
+            <NavLink to="/auth">SIGN IN</NavLink>
+          )}
         </NavLinkWrapper>
       </Wrapper>
       <Outlet />
@@ -29,6 +40,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  padding: 0px 20px;
 `;
 const NavLogo = styled(Link)`
   .logo {
@@ -46,6 +58,10 @@ const NavLinkWrapper = styled.div`
   justify-content: flex-end;
 `;
 const NavLink = styled(Link)`
+  padding: 10px 15px;
+  cursor: pointer;
+`;
+const SignOut = styled.div`
   padding: 10px 15px;
   cursor: pointer;
 `;

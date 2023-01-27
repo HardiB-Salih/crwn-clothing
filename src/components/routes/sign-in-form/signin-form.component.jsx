@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import styled from "styled-components";
 import {
-  createUserDocumentFromAuth,
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../../utils/firebase/firebase.utils";
@@ -18,10 +17,8 @@ const SignInForm = () => {
   const [formFields, setformFields] = useState(defaltFormFields);
   const [toDashboard, setToDashboard] = useState(false);
   const { email, password } = formFields;
-
   const logWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDoc = await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   if (toDashboard === true) {

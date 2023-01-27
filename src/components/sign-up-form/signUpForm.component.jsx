@@ -35,7 +35,6 @@ const SignUpForm = () => {
           email,
           password
         );
-
         await createUserDocumentFromAuth(user, { displayName });
         setformFields(defaltFormFields);
       } catch (err) {
