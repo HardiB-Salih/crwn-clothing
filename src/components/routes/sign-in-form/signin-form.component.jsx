@@ -82,7 +82,7 @@ const Wrapper = styled.div`
   padding: 20px;
   margin: 20px;
   text-align: center;
-  background: rgba(50, 61, 109, 0.5);
+  background: rgba(0, 0, 0, 0.1);
   border: 0.5px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(20px);
   border-radius: 20px;

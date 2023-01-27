@@ -13,7 +13,7 @@ const Navigation = () => {
 
         <NavLinkWrapper>
           <NavLink to="/shop">SHOP</NavLink>
-          <NavLink to="/sign-in">SIGN IN</NavLink>
+          <NavLink to="/auth">SIGN IN</NavLink>
         </NavLinkWrapper>
       </Wrapper>
       <Outlet />
