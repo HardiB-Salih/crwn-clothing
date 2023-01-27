@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { ToggleContext } from "../../contexts/toggle.context";
 
 const ProductCard = ({ product }) => {
+  const { addItemToCart } = useContext(ToggleContext);
   const { name, price, imageUrl } = product;
+
+  const addProductToCard = () => addItemToCart(product);
   return (
     <Wrapper>
       <Image src={imageUrl} alt={`${name}`} />
@@ -9,7 +14,7 @@ const ProductCard = ({ product }) => {
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
-      <Button>Add To Card</Button>
+      <Button onClick={addProductToCard}>Add To Card</Button>
     </Wrapper>
   );
 };

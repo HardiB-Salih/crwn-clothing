@@ -4,14 +4,13 @@ import { ReactComponent as ShoppingCard } from "../../assets/shopping-bag.svg";
 import { ToggleContext } from "../../contexts/toggle.context";
 
 const CardIcon = () => {
-  const { toggle, setToggle } = useContext(ToggleContext);
-
+  const { toggle, setToggle, cartCount } = useContext(ToggleContext);
   const toggleIsCartOpen = () => setToggle(!toggle);
 
   return (
     <Wrapper onClick={toggleIsCartOpen}>
       <Icon />
-      <Span>10</Span>
+      <Span>{cartCount}</Span>
     </Wrapper>
   );
 };

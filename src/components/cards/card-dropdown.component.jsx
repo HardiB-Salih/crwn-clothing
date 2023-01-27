@@ -1,9 +1,18 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { ToggleContext } from "../../contexts/toggle.context";
+import CartItem from "./card-item.component";
 
 const CardDropDown = () => {
+  const { cartItems } = useContext(ToggleContext);
+
   return (
     <Wrappe>
-      <CardItem />
+      <CardItem>
+        {cartItems.map((item) => (
+          <CartItem key={item.id} cartItem={item} />
+        ))}
+      </CardItem>
       <Button>Go to Checkout</Button>
     </Wrappe>
   );
@@ -13,14 +22,14 @@ export default CardDropDown;
 
 const Wrappe = styled.div`
   position: absolute;
-  width: 240px;
+  width: 260px;
   height: 340px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   border: 1px solid black;
   background-color: white;
-  top: 90px;
+  top: 60px;
   right: 40px;
   z-index: 5;
 
