@@ -1,8 +1,9 @@
 import React from "react";
-import Home from "./components/routes/home/home.components";
 import { Routes, Route } from "react-router-dom";
-import Navigation from "./components/routes/navigation/navigation.component";
-import Authentication from "./components/routes/signIn/authentication.component";
+import Home from "./routes/home/home.components";
+import Navigation from "./routes/navigation/navigation.component";
+import Authentication from "./routes/authentication/authentication.component";
+import Shop from "./routes/shop/shop.component";
 
 const App = () => {
   return (
@@ -17,7 +18,3 @@ const App = () => {
 };
 
 export default App;
-
-const Shop = () => {
-  return <h1>I am shop</h1>;
-};

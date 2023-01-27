@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import SignUpForm from "../../sign-up-form/signUpForm.component";
-import SignInForm from "../sign-in-form/signin-form.component";
+import SignInForm from "../../components/sign-in-form/signin-form.component";
+import SignUpForm from "../../components/sign-up-form/signUpForm.component";
 
 const Authentication = () => {
   return (

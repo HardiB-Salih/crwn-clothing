@@ -5,8 +5,8 @@ import styled from "styled-components";
 import {
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
-} from "../../../utils/firebase/firebase.utils";
-import FormInput from "../../form-input/formInput.component";
+} from "../../utils/firebase/firebase.utils";
+import FormInput from "../form-input/formInput.component";
 
 const defaltFormFields = {
   email: "",

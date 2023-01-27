@@ -1,16 +1,19 @@
 import React, { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
-import { UserContext } from "../../../contexts/user.context";
-import { signOutUser } from "../../../utils/firebase/firebase.utils";
+import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
+import CardDropDown from "../../components/cards/card-dropdown.component";
+import CardIcon from "../../components/cards/card-icon.componet";
+import { ToggleContext } from "../../contexts/toggle.context";
+import { UserContext } from "../../contexts/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
+  const { toggle } = useContext(ToggleContext);
 
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentUser(null);
   };
   return (
     <Fragment>
@@ -25,7 +28,9 @@ const Navigation = () => {
           ) : (
             <NavLink to="/auth">SIGN IN</NavLink>
           )}
+          <CardIcon />
         </NavLinkWrapper>
+        {toggle && <CardDropDown />}
       </Wrapper>
       <Outlet />
     </Fragment>

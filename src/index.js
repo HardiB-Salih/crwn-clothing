@@ -5,13 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./contexts/user.context";
 import "./index.css";
+import { ProductsProvider } from "./contexts/products.contex";
+import { ToggleProvider } from "./contexts/toggle.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <ToggleProvider>
+            <App />
+          </ToggleProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
