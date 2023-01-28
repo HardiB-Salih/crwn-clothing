@@ -41,7 +41,7 @@ const clearCartItem = (cartItems, cartItemToClear) => {
   return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 };
 
-export const ToggleContext = createContext({
+export const CartContext = createContext({
   toggle: false,
   setToggle: () => {},
 
@@ -53,7 +53,7 @@ export const ToggleContext = createContext({
   totalCount: 0,
 });
 
-export const ToggleProvider = ({ children }) => {
+export const CartProvider = ({ children }) => {
   const [toggle, setToggle] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
@@ -96,7 +96,5 @@ export const ToggleProvider = ({ children }) => {
     totalCount,
   };
 
-  return (
-    <ToggleContext.Provider value={value}>{children}</ToggleContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CategoryItem = ({ title, imageUrl }) => {
+  const navigate = useNavigate();
+
+  const goToShopCatogaryHandler = () => {
+    navigate(`/shop/${title}`);
+  };
   return (
-    <CategoryContainer>
+    <CategoryContainer onClick={goToShopCatogaryHandler}>
       <div
         className="background-image"
         style={{

@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CardDropDown from "../../components/cards/card-dropdown.component";
 import CardIcon from "../../components/cards/card-icon.componet";
-import { ToggleContext } from "../../contexts/toggle.context";
+import { CartContext } from "../../contexts/cart.context";
 import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { toggle } = useContext(ToggleContext);
+  const { toggle } = useContext(CartContext);
 
   const signOutHandler = async () => {
     await signOutUser();

@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { ToggleContext } from "../../contexts/toggle.context";
+import { CartContext } from "../../contexts/cart.context";
 
 const CheckoutItem = ({ cartItem }) => {
   const { addItemToCart, removeItemToCart, clearItemToCart } =
-    useContext(ToggleContext);
+    useContext(CartContext);
   const { name, imageUrl, price, quantity } = cartItem;
   const clearItemHandler = () => clearItemToCart(cartItem);
   const addItemHandler = () => addItemToCart(cartItem);

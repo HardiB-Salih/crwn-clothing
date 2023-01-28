@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import CheckoutItem from "../../components/cards/checkout-item.component";
-import { ToggleContext } from "../../contexts/toggle.context";
+import { CartContext } from "../../contexts/cart.context";
 
 const CheckOut = () => {
-  const { cartItems, totalCount } = useContext(ToggleContext);
+  const { cartItems, totalCount } = useContext(CartContext);
   //   console.log(cartItems);
   return (
     <Wrapper>

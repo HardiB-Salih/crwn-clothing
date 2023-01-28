@@ -1,23 +1,29 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ToggleContext } from "../../contexts/toggle.context";
+import { CartContext } from "../../contexts/cart.context";
 import CartItem from "./card-item.component";
 
 const CardDropDown = () => {
-  const { cartItems } = useContext(ToggleContext);
+  const { cartItems, setToggle } = useContext(CartContext);
   const navigate = useNavigate();
 
   const goToCheckoutHandler = () => {
     navigate("/checkout");
+    setToggle(false);
   };
   return (
     <Wrappe>
-      <CardItem>
-        {cartItems.map((item) => (
-          <CartItem key={item.id} cartItem={item} />
-        ))}
-      </CardItem>
+      {cartItems.length ? (
+        <CardItem>
+          {cartItems.map((item) => (
+            <CartItem key={item.id} cartItem={item} />
+          ))}
+        </CardItem>
+      ) : (
+        <EmptyMessage>You Do Not have any item Shope buddy</EmptyMessage>
+      )}
+
       <Button onClick={goToCheckoutHandler}>Go to Checkout</Button>
     </Wrappe>
   );
@@ -37,11 +43,11 @@ const Wrappe = styled.div`
   top: 60px;
   right: 40px;
   z-index: 5;
+`;
 
-  /* .empty-message {
-    font-size: 18px;
-    margin: 50px auto;
-  } */
+const EmptyMessage = styled.span`
+  font-size: 18px;
+  margin: 50px auto;
 `;
 const CardItem = styled.div`
   height: 240px;

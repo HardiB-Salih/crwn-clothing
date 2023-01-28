@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { ToggleContext } from "../../contexts/toggle.context";
+import { CartContext } from "../../contexts/cart.context";
 
 const ProductCard = ({ product }) => {
-  const { addItemToCart } = useContext(ToggleContext);
+  const { addItemToCart } = useContext(CartContext);
   const { name, price, imageUrl } = product;
 
   const addProductToCard = () => addItemToCart(product);
