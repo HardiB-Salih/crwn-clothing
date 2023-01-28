@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   createAuthUserWithEmailAndPassword,
@@ -14,6 +15,7 @@ const defaltFormFields = {
 };
 
 const SignUpForm = () => {
+  const [toDashboard, setToDashboard] = useState(false);
   const [formFields, setformFields] = useState(defaltFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -36,12 +38,19 @@ const SignUpForm = () => {
           password
         );
         await createUserDocumentFromAuth(user, { displayName });
+        if (user !== null) {
+          setToDashboard(true);
+        }
         setformFields(defaltFormFields);
       } catch (err) {
         console.log("something went wrong", err.message);
       }
     }
   };
+
+  if (toDashboard === true) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Wrapper>

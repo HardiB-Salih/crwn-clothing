@@ -18,7 +18,10 @@ const SignInForm = () => {
   const [toDashboard, setToDashboard] = useState(false);
   const { email, password } = formFields;
   const logWithGoogle = async () => {
-    await signInWithGooglePopup();
+    const { user } = await signInWithGooglePopup();
+    if (user !== null) {
+      setToDashboard(true);
+    }
   };
 
   if (toDashboard === true) {

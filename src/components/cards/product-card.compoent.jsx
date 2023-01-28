@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { CartContext } from "../../contexts/cart.context";
+import Button from "../button/button.component";
 
 const ProductCard = ({ product }) => {
   const { addItemToCart } = useContext(CartContext);
@@ -14,7 +15,9 @@ const ProductCard = ({ product }) => {
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
-      <Button onClick={addProductToCard}>Add To Card</Button>
+      <Button buttonType="base" onClick={addProductToCard}>
+        Add To Card
+      </Button>
     </Wrapper>
   );
 };
@@ -41,6 +44,14 @@ const Wrapper = styled.div`
       display: flex;
     }
   }
+
+  button {
+    width: 80%;
+    opacity: 0.7;
+    position: absolute;
+    top: 255px;
+    display: none;
+  }
 `;
 const Image = styled.img`
   width: 100%;
@@ -61,21 +72,4 @@ const Name = styled.span`
 `;
 const Price = styled.span`
   width: 10%;
-`;
-const Button = styled.button`
-  width: 80%;
-  opacity: 0.7;
-  position: absolute;
-  top: 255px;
-  display: none;
-  background: black;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  align-items: center;
-
-  :hover {
-    background: white;
-    color: black;
-  }
 `;
