@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CartContext } from "../../contexts/cart.context";
+import Button from "../button/button.component";
 import CartItem from "./card-item.component";
 
 const CardDropDown = () => {
@@ -55,16 +56,16 @@ const CardItem = styled.div`
   flex-direction: column;
   overflow: scroll;
 `;
-const Button = styled.button`
-  background: black;
-  color: wheat;
-  border: none;
-  padding: 15px 30px;
-  align-items: center;
-  margin-top: auto;
+// const Button = styled.button`
+//   background: black;
+//   color: wheat;
+//   border: none;
+//   padding: 15px 30px;
+//   align-items: center;
+//   margin-top: auto;
 
-  :hover {
-    background: wheat;
-    color: black;
-  }
-`;
+//   :hover {
+//     background: wheat;
+//     color: black;
+//   }
+// `;
