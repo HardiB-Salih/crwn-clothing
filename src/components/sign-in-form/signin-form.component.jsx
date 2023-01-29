@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { GoogleLoginButton } from "react-social-login-buttons";
 import styled from "styled-components";
 import {
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/formInput.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 const defaltFormFields = {
   email: "",
@@ -17,7 +17,8 @@ const SignInForm = () => {
   const [formFields, setformFields] = useState(defaltFormFields);
   const [toDashboard, setToDashboard] = useState(false);
   const { email, password } = formFields;
-  const logWithGoogle = async () => {
+
+  const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     if (user !== null) {
       setToDashboard(true);
@@ -29,7 +30,7 @@ const SignInForm = () => {
   }
 
   // console.log(formFields);
-  const handleChanges = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setformFields({ ...formFields, [name]: value });
   };
@@ -48,63 +49,54 @@ const SignInForm = () => {
   };
 
   return (
-    <Wrapper>
-      <h2>i have an account</h2>
-      <span>Sign In With email and password</span>
-      <Form onSubmit={handleSubmit}>
+    <SignInContainer>
+      <h2>Already have an account?</h2>
+      <span>Sign in with your email and password</span>
+      <form onSubmit={handleSubmit}>
         <FormInput
-          lable="Email"
+          label="Email"
           type="email"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="email"
           value={email}
         />
+
         <FormInput
-          lable="Password"
+          label="Password"
           type="password"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="password"
           value={password}
         />
-        <Button type="submit">Sign Up</Button>
-        <GoogleLoginButton onClick={logWithGoogle} />
-      </Form>
-    </Wrapper>
+        <ButtonsContainer>
+          <Button type="submit">Sign In</Button>
+          <Button
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            type="button"
+            onClick={signInWithGoogle}
+          >
+            Google Sign In
+          </Button>
+        </ButtonsContainer>
+      </form>
+    </SignInContainer>
   );
 };
 
 export default SignInForm;
 
-const Wrapper = styled.div`
+const SignInContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 380px;
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.1);
-  border: 0.5px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-`;
-const Form = styled.form`
-  display: grid;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px;
+  h2 {
+    margin: 10px 0;
+  }
 `;
 
-const Button = styled.button`
-  width: 250px;
-  background: linear-gradient(91.4deg, #2fb8ff 0%, #9eecd9 100%);
-  padding: 12px 0;
-  border: none;
-  border-radius: 30px;
-  color: white;
-  font-weight: bold;
-  font-family: Segoe UI, sans-serif;
-  cursor: pointer;
-  :focus {
-    outline: none;
-  }
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

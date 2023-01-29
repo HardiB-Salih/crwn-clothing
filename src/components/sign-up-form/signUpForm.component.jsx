@@ -5,6 +5,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import Button from "../button/button.component";
 import FormInput from "../form-input/formInput.component";
 
 const defaltFormFields = {
@@ -20,7 +21,7 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
 
   // console.log(formFields);
-  const handleChanges = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setformFields({ ...formFields, [name]: value });
   };
@@ -53,77 +54,58 @@ const SignUpForm = () => {
   }
 
   return (
-    <Wrapper>
-      <h2>Dont have an account</h2>
-      <span>Sign Up With email and password</span>
-      <Form onSubmit={handleSubmit}>
+    <SignUpContainer>
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
+      <form onSubmit={handleSubmit}>
         <FormInput
-          lable="Display Name"
+          label="Display Name"
           type="text"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="displayName"
           value={displayName}
         />
+
         <FormInput
-          lable="Email"
+          label="Email"
           type="email"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="email"
           value={email}
         />
+
         <FormInput
-          lable="Password"
+          label="Password"
           type="password"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="password"
           value={password}
         />
+
         <FormInput
-          lable="Confirm Password"
+          label="Confirm Password"
           type="password"
           required
-          onChange={handleChanges}
+          onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
         />
         <Button type="submit">Sign Up</Button>
-      </Form>
-    </Wrapper>
+      </form>
+    </SignUpContainer>
   );
 };
 
 export default SignUpForm;
 
-const Wrapper = styled.div`
+const SignUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 380px;
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.1);
-  border: 0.5px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-`;
-const Form = styled.form`
-  display: grid;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px;
-`;
-const Button = styled.button`
-  width: 250px;
-  background: linear-gradient(91.4deg, #2fb8ff 0%, #9eecd9 100%);
-  padding: 12px 0;
-  border: none;
-  border-radius: 30px;
-  color: white;
-  font-weight: bold;
-  font-family: Segoe UI, sans-serif;
-  cursor: pointer;
-  :focus {
-    outline: none;
+  h2 {
+    margin: 10px 0;
   }
 `;

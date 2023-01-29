@@ -6,7 +6,7 @@ const CategoryItem = ({ title, imageUrl }) => {
   const navigate = useNavigate();
 
   const goToShopCatogaryHandler = () => {
-    navigate(`/shop/${title}`);
+    navigate(`shop/${title}`);
   };
   return (
     <CategoryContainer onClick={goToShopCatogaryHandler}>

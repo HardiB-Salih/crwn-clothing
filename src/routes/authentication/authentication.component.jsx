@@ -4,18 +4,18 @@ import SignUpForm from "../../components/sign-up-form/signUpForm.component";
 
 const Authentication = () => {
   return (
-    <Wrapper>
+    <AuthenticationContainer>
       <SignInForm />
       <SignUpForm />
-    </Wrapper>
+    </AuthenticationContainer>
   );
 };
 
 export default Authentication;
 
-const Wrapper = styled.div`
-  max-width: 900px;
+const AuthenticationContainer = styled.div`
   display: flex;
+  width: 1000px;
   justify-content: space-between;
   margin: 30px auto;
 `;

@@ -1,36 +1,65 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const FormInput = (props) => {
-  const { lable, type, onChange, name, value } = props;
+const FormInput = ({ label, ...otherProps }) => {
   return (
     <Group>
-      <Input
-        placeholder={lable}
-        type={type}
-        required
-        onChange={onChange}
-        name={name}
-        value={value}
-      />
+      <Input {...otherProps} />
+      {label && (
+        <FormInputLabel shrink={otherProps.value.length}>
+          {label}
+        </FormInputLabel>
+      )}
     </Group>
   );
 };
 
 export default FormInput;
 
-const Group = styled.div``;
-const Input = styled.input`
-  width: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 10px 20px;
-  background-blend-mode: overlay;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 20px 40px rgba(31, 47, 71, 0.25),
-    0px 1px 5px rgba(0, 0, 0, 0.1), inset 0 0 0 0.5px rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(250, 250, 250, 0.4);
+const subColor = "grey";
+const mainColor = "black";
 
-  :focus {
+const shrinkLabelStyles = css`
+  top: -14px;
+  font-size: 12px;
+  color: ${mainColor};
+`;
+
+export const FormInputLabel = styled.label`
+  color: ${subColor};
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 300ms ease all;
+  ${({ shrink }) => shrink && shrinkLabelStyles};
+`;
+
+export const Input = styled.input`
+  background: none;
+  background-color: white;
+  color: ${subColor};
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid ${subColor};
+  margin: 25px 0;
+  &:focus {
     outline: none;
+  }
+  &:focus ~ ${FormInputLabel} {
+    ${shrinkLabelStyles};
+  }
+`;
+
+export const Group = styled.div`
+  position: relative;
+  margin: 45px 0;
+  input[type="password"] {
+    letter-spacing: 0.3em;
   }
 `;
