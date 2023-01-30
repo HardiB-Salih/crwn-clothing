@@ -1,12 +1,18 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProductCard from "../../components/cards/product-card.compoent";
-import { CatogariesContext } from "../../contexts/products.contex";
+import Spinner from "../../components/spinner/spinner.component";
+import {
+  selectCatogariesIsLoading,
+  selectCatogariesMap,
+} from "../../store/catogaries/catogaries.select";
 
 const Catogary = () => {
   const { catogary } = useParams();
-  const { catogariesMap } = useContext(CatogariesContext);
+  const catogariesMap = useSelector(selectCatogariesMap);
+  const isLoading = useSelector(selectCatogariesIsLoading);
   const [products, setProducts] = useState(catogariesMap[catogary]);
 
   useEffect(() => {
@@ -16,12 +22,16 @@ const Catogary = () => {
   return (
     <Fragment>
       <H2>{catogary}</H2>
-      <Wrapper>
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </Wrapper>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Wrapper>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </Wrapper>
+      )}
     </Fragment>
   );
 };

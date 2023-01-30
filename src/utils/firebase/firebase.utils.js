@@ -42,6 +42,7 @@ googleProvider.getCustomParameters({
 });
 
 export const auth = getAuth();
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () =>
@@ -72,12 +73,15 @@ export const getCatogeriesAndDocuments = async () => {
   const collectionRef = collection(db, "catogaries");
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
-  const catogaryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-  return catogaryMap;
+
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+
+  // const catogaryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+  // return catogaryMap;
 };
 
 export const createUserDocumentFromAuth = async (
@@ -109,7 +113,8 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  // We Change this to make the saga work
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -123,5 +128,19 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
+
 export const onAuthStateChangedLisner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

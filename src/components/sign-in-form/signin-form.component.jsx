@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import {
-  signInUserWithEmailAndPassword,
-  signInWithGooglePopup,
-} from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/formInput.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import { useDispatch, useSelector } from "react-redux";
+import { googleSignInStart, signInStart } from "../../store/user/user.action";
+import { selectCurrentUser } from "../../store/user/user.select";
 
 const defaltFormFields = {
   email: "",
@@ -14,22 +13,19 @@ const defaltFormFields = {
 };
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setformFields] = useState(defaltFormFields);
-  const [toDashboard, setToDashboard] = useState(false);
   const { email, password } = formFields;
+  const currentUser = useSelector(selectCurrentUser);
 
-  const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    if (user !== null) {
-      setToDashboard(true);
-    }
-  };
-
-  if (toDashboard === true) {
+  if (currentUser !== null) {
     return <Navigate to="/" />;
   }
 
-  // console.log(formFields);
+  const signInWithGoogle = async () => {
+    dispatch(googleSignInStart());
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setformFields({ ...formFields, [name]: value });
@@ -37,12 +33,10 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(email);
     try {
-      const { user } = await signInUserWithEmailAndPassword(email, password);
+      dispatch(signInStart(email, password));
       setformFields(defaltFormFields);
-      if (user !== null) {
-        setToDashboard(true);
-      }
     } catch (err) {
       console.log("something went wrong", err.message);
     }

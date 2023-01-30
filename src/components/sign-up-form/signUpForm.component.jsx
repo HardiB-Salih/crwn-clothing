@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+import { signUpStart } from "../../store/user/user.action";
+import { selectCurrentUser } from "../../store/user/user.select";
 import Button from "../button/button.component";
 import FormInput from "../form-input/formInput.component";
 
@@ -16,9 +15,14 @@ const defaltFormFields = {
 };
 
 const SignUpForm = () => {
-  const [toDashboard, setToDashboard] = useState(false);
   const [formFields, setformFields] = useState(defaltFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
+  if (currentUser !== null) {
+    return <Navigate to="/" />;
+  }
 
   // console.log(formFields);
   const handleChange = (event) => {
@@ -34,24 +38,13 @@ const SignUpForm = () => {
       return;
     } else {
       try {
-        const { user } = await createAuthUserWithEmailAndPassword(
-          email,
-          password
-        );
-        await createUserDocumentFromAuth(user, { displayName });
-        if (user !== null) {
-          setToDashboard(true);
-        }
+        dispatch(signUpStart(email, password, displayName));
         setformFields(defaltFormFields);
       } catch (err) {
         console.log("something went wrong", err.message);
       }
     }
   };
-
-  if (toDashboard === true) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <SignUpContainer>
