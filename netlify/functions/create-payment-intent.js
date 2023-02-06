@@ -1,8 +1,7 @@
-require("dotenv").config({
-  path: `.env`,
-});
+require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-export async function handler(event) {
+
+exports.handler = async (event) => {
   try {
     const { amount } = JSON.parse(event.body);
 
@@ -17,11 +16,11 @@ export async function handler(event) {
       body: JSON.stringify({ paymentIntent }),
     };
   } catch (error) {
-    console.log({ error });
+    console.log("error from create-payment-intent", { error });
 
     return {
-      statusCode: 400,
+      status: 400,
       body: JSON.stringify({ error }),
     };
   }
-}
+};
