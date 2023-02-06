@@ -55,6 +55,10 @@ export const clearItemToCart = (cartItems, cartItemToClear) => {
   return createAction(CART_ACTION_TYPE.SET_CART_ITEMS, newCartItems);
 };
 
+export const clearCartItems = () => {
+  return createAction(CART_ACTION_TYPE.SET_CART_ITEMS, []);
+};
+
 // For The Toggole
 export const setIsCartOpen = (bool) => {
   return createAction(CART_ACTION_TYPE.SET_IS_CART_OPEN, bool);

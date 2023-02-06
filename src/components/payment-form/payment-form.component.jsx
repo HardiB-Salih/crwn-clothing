@@ -1,17 +1,23 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { clearCartItems } from "../../store/cart/cart.action";
 import { selectCartTotal } from "../../store/cart/cart.select";
 import { selectCurrentUser } from "../../store/user/user.select";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 const PaymentForm = () => {
+  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const navigate = useNavigate();
+
+  const clearCarts = () => dispatch(clearCartItems());
 
   const paymentHandler = async (e) => {
     e.preventDefault();
@@ -48,6 +54,8 @@ const PaymentForm = () => {
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         alert("Payment Successful!");
+        clearCarts();
+        navigate("/");
       }
     }
   };
@@ -57,7 +65,12 @@ const PaymentForm = () => {
       <FormWrapper onSubmit={paymentHandler}>
         <h2>Cridit Card Payment:</h2>
         <CardElement />
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}> Pay Now </Button>
+        <Button
+          isLoading={isProcessingPayment}
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+        >
+          Pay Now
+        </Button>
       </FormWrapper>
     </Wrapper>
   );
